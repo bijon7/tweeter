@@ -1,0 +1,13 @@
+header {
+  display: flex;
+  height: 400px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  background-color: blanchedalmond;
+}
+/* background-image: "public/images/E455C3E8-7F11-4539-AC57-52B96E3D202C_4_5005_c.jpeg";
+ */
+header img {
+  margin-top: 150px;
+}
