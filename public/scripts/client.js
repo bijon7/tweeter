@@ -81,12 +81,15 @@ $(document).ready(function () {
   $("#tweet-form").submit(function (event) {
     const tweetText = $("#tweet-text").val();
     event.preventDefault();
-    if (tweetText.length === 0 || tweetText.length > 140) {
-      alert("invalid input")
-    } else {
-
+    if (tweetText.length === 0) {
+      $(".error-message").slideDown("fast").text("Invalid tweet length")
+    } else if (tweetText.length > 140) {
+      $(".error-message").slideDown("fast").text("Tweet length must be less than 140 characters")
+    }
+    else {
       $.post("/tweets", { text: tweetText }, (data) => {
-        console.log(data);
+        $(".error-message").slideUp("fast")
+        console.log("server test", data);
         loadtweets();
         $("#tweet-text").val("");
         $(".counter").text(140);

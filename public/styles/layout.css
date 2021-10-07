@@ -27,15 +27,38 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  background-color: #f4f1ec;
-  margin-left: 1.5em;
-  margin-right: 1.5em;
+@media (min-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: #f4f1ec;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+    margin-top: 100px;
+  }
 }
 
 .tweet-container {
   margin-bottom: 100px;
+}
+
+.resize {
+  display: block;
+  border: 1px solid red;
+}
+@media (min-width: 768px) {
+  .resize {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid yellow;
+  }
+}
+
+@media (min-width: 1024px) {
+  .resize {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid green;
+  }
 }

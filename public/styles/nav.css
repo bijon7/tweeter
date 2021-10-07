@@ -6,7 +6,7 @@ nav {
   height: 120px;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: fixed;
   width: 100%;
   z-index: 2;
 }
