@@ -89,7 +89,6 @@ $(document).ready(function () {
     else {
       $.post("/tweets", { text: tweetText }, (data) => {
         $(".error-message").slideUp("fast")
-        console.log("server test", data);
         loadtweets();
         $("#tweet-text").val("");
         $(".counter").text(140);

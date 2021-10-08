@@ -17,6 +17,10 @@
   flex-direction: column;
 }
 
+.error-message {
+  border: 1px red;
+}
+
 .tweet-box {
   display: flex;
   justify-content: space-between;
