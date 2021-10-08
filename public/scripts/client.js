@@ -29,6 +29,7 @@ const data = [
     "created_at": 1461113959088
   }
 ]
+//Define escape function to protect code.
 const escape = function (str) {
   let div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
@@ -38,7 +39,7 @@ const escape = function (str) {
 
 $(document).ready(function () {
 
-
+  //Creates basic individual tweet structure with display design.
   function createTweetElement(tweet) {
     return `
     <article class="tweet">
@@ -68,7 +69,7 @@ $(document).ready(function () {
 
   }
 
-
+  //Keeps adding new tweets towards to the top of the page.
 
   const renderTweets = function (tweets) {
     for (const tweet of tweets) {
@@ -78,6 +79,8 @@ $(document).ready(function () {
   }
   renderTweets(data);
 
+  //Tweet submission shows error message if invalid charaters are input, otherwise, a post
+  //request is sent thorough to the appropriate URL. 
   $("#tweet-form").submit(function (event) {
     const tweetText = $("#tweet-text").val();
     event.preventDefault();
@@ -90,13 +93,14 @@ $(document).ready(function () {
       $.post("/tweets", { text: tweetText }, (data) => {
         $(".error-message").slideUp("fast")
         loadtweets();
+        //Tweet value and character count reset after every single tweet.
         $("#tweet-text").val("");
         $(".counter").text(140);
       })
     }
 
   });
-
+  //ajax request sent to server to retrieve tweet data.
   const loadtweets = function () {
     $.ajax(
       {
@@ -109,6 +113,6 @@ $(document).ready(function () {
       }
     )
   }
-  loadtweets();
+  //loadtweets();
 
 })
