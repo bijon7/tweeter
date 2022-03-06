@@ -4,15 +4,44 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+// const data = [
+//   {
+//     "user": {
+//       "name": "Newton",
+//       "avatars": "https://i.imgur.com/73hZDYK.png"
+//       ,
+//       "handle": "@SirIsaac"
+//     },
+//     "content": {
+//       "text": "If I have seen further it is by standing on the shoulders of giants"
+//     },
+//     "created_at": 1461116232227
+//   },
+//   {
+//     "user": {
+//       "name": "Descartes",
+//       "avatars": "https://i.imgur.com/nlhLi3I.png",
+//       "handle": "@rd"
+//     },
+//     "content": {
+//       "text": "Je pense , donc je suis"
+//     },
+//     "created_at": 1461113959088
+//   }
+// ]
 //Define escape function to protect code.
 const escape = function (str) {
   let div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
-//Creates basic individual tweet structure with display design.
-function createTweetElement(tweet) {
-  return `
+
+
+$(document).ready(function () {
+
+  //Creates basic individual tweet structure with display design.
+  function createTweetElement(tweet) {
+    return `
     <article class="tweet">
     <div class="container-header">
       <div class="leftside">
@@ -35,78 +64,66 @@ function createTweetElement(tweet) {
       </div>
     </footer>
   </article>
-    `;
+    `
 
 
-}
-
-const renderTweets = function (tweets) {
-  console.log("renderTweets: ", tweets.length);
-  let tweetsContainer = $('.tweet-container').html('');
-  tweets.forEach((tweet) => {
-    let tweetElement = createTweetElement(tweet);
-    tweetsContainer.prepend(tweetElement);
-  });
-};
-
-
-$(document).ready(function () {
-
-
+  }
 
   //Keeps adding new tweets towards to the top of the page.
 
-  // const renderTweets = function (tweets) {
-  //   console.log("renderTweets: ", tweets.length);
-  //   for (const tweet of tweets) {
-  //     const $tweet = createTweetElement(tweet);
-  //     $('.tweet-container').prepend($tweet);
-  //   }
-  // };
+  const renderTweets = function (tweets) {
+    //console.log("renderTweets test", tweets);
+    for (const tweet of tweets) {
+      const $tweet = createTweetElement(tweet);
+      $('.tweet-container').prepend($tweet);
+    }
+  }
+  //renderTweets(data);
 
   //Tweet submission shows error message if invalid charaters are input, otherwise, a post
   //request is sent thorough to the appropriate URL. 
   $("#tweet-form").submit(function (event) {
     event.preventDefault();
     const tweetText = $("#tweet-text").val();
+
     if (tweetText.length === 0) {
-      $(".error-message").slideDown("fast").text("Invalid tweet length");
+      $(".error-message").slideDown("fast").text("Invalid tweet length")
     } else if (tweetText.length > 140) {
-      $(".error-message").slideDown("fast").text("Tweet length must be less than 140 characters");
+      $(".error-message").slideDown("fast").text("Tweet length must be less than 140 characters")
     }
     else {
-      $.post("/tweets", $(this).serialize(), function () {
-        $(".error-message").slideUp("fast");
+      $.post("/tweets", $(this).serialize(), (data) => {
+        $(".error-message").slideUp("fast")
         loadtweets();
         //Tweet value and character count reset after every single tweet.
         $("#tweet-text").val("");
         $(".counter").text(140);
-      });
+      })
     }
 
   });
   //ajax request sent to server to retrieve tweet data.
   const loadtweets = function () {
-    $.ajax('/tweets', { method: 'GET', dataType: "json" })
-      .then(function (result) {
-        console.log(result);
-        console.log("loadtweets: ", result.length);
-        renderTweets(result);
-      }).catch(err => {
-        console.log("err => ", err);
-      });
     // $.ajax(
     //   {
     //     url: "/tweets",
     //     method: "get",
     //     dataType: "json",
     //     success: (tweets) => {
-    //       console.log("loadtweets: ", tweets.length);
-    //       renderTweets(tweets);
+    //       console.log("line 111", tweets);
+    //       renderTweets(tweets)
     //     }
     //   }
-    // );
-  };
-  loadtweets();
+    // )
 
-});
+    $.ajax('/tweets', { method: 'GET', dataType: "json" })
+      .then(function (result) {
+        console.log("testing result", result);
+        renderTweets(result);
+      }).catch(err => {
+        console.log("err => ", err);
+      });
+  }
+  //loadtweets();
+
+})

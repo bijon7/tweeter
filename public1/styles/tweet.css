@@ -1,0 +1,29 @@
+.tweet {
+  display: flex;
+  flex-direction: column;
+  border: solid 2px black;
+  margin-bottom: 100px;
+}
+
+.container-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tweet img {
+  width: 50px;
+}
+
+.leftside {
+  display: flex;
+  flex-direction: row;
+}
+
+.container-symbols {
+  display: flex;
+  justify-content: flex-end;
+}
+.container-symbols i:hover {
+  color: blue;
+}
