@@ -108,6 +108,7 @@ $(document).ready(function () {
         method: "get",
         dataType: "json",
         success: (tweets) => {
+          console.log("tweets", tweets);
           renderTweets(tweets)
         }
       }
